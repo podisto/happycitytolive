@@ -1,10 +1,10 @@
 package com.simba.happycitytolive;
 
+import com.simba.happycitytolive.application.HabitantService;
+import com.simba.happycitytolive.application.HabitantServiceImpl;
 import com.simba.happycitytolive.application.dto.HabitantEligible;
 import com.simba.happycitytolive.domain.Habitant;
 import com.simba.happycitytolive.domain.HabitantRepository;
-import com.simba.happycitytolive.application.HabitantService;
-import com.simba.happycitytolive.application.HabitantServiceImpl;
 import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.Test;
 
@@ -19,9 +19,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 class HabitantServiceTest {
 
-    private HabitantRepository habitantRepository = new InMemoryHabitantRepository();
-    private Clock clock = initFixedClock();
-    private HabitantService habitantService = new HabitantServiceImpl(habitantRepository, clock);
+    private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
+    private final Clock clock = initFixedClock();
+    private final HabitantService habitantService = new HabitantServiceImpl(habitantRepository, clock);
 
     @Test
     void retrieveEligibleResidents_shouldReturnResidentsWithArrivalDateGreaterThanAYear() {
