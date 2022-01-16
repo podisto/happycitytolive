@@ -34,6 +34,7 @@ class HabitantServiceTest {
         List<HabitantEligible> habitantEligibles = habitantService.getEligibleResidents();
 
         assertThat(habitantEligibles.size()).isEqualTo(2);
+        assertThat(habitantEligibles.get(0).getDateNaissance()).isEqualTo("08/10/1980");
     }
 
     private Clock initFixedClock() {
