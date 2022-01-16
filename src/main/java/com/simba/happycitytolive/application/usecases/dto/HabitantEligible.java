@@ -1,15 +1,17 @@
 package com.simba.happycitytolive.application.usecases.dto;
 
 import com.simba.happycitytolive.application.domain.Habitant;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
  * Created by podisto on 15/01/2022.
  */
 @Data
+@NoArgsConstructor
 public class HabitantEligible {
     private String nom;
     private String prenom;
