@@ -1,8 +1,8 @@
-package com.simba.happycitytolive.application;
+package com.simba.happycitytolive.application.usecases;
 
-import com.simba.happycitytolive.application.dto.HabitantEligible;
-import com.simba.happycitytolive.domain.Habitant;
-import com.simba.happycitytolive.domain.HabitantRepository;
+import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
+import com.simba.happycitytolive.application.domain.Habitant;
+import com.simba.happycitytolive.application.domain.HabitantRepository;
 import lombok.RequiredArgsConstructor;
 
 import java.time.Clock;
@@ -20,10 +20,18 @@ public class HabitantServiceImpl implements HabitantService {
     private final Clock clock;
 
     @Override
-    public List<HabitantEligible> retrieveEligibleResidents() {
+    public List<HabitantEligible> getEligibleResidents() {
         LocalDate currentDate = LocalDate.now(clock);
         List<Habitant> habitants = habitantRepository.findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(currentDate);
         return getHabitantEligibles(habitants);
+    }
+
+    @Override
+    public void addResident(NouvelHabitant nouvelHabitant) {
+        Habitant habitant = new Habitant(nouvelHabitant.getNom(), nouvelHabitant.getPrenom(), nouvelHabitant.getEmail(),
+                nouvelHabitant.getDateNaissance(), nouvelHabitant.getDateArriveeCommune(), nouvelHabitant.getAdresse());
+        habitantRepository.save(habitant);
+
     }
 
     private List<HabitantEligible> getHabitantEligibles(List<Habitant> habitants) {

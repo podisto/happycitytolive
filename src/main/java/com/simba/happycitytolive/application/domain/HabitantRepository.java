@@ -1,4 +1,4 @@
-package com.simba.happycitytolive.domain;
+package com.simba.happycitytolive.application.domain;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -7,7 +7,8 @@ import java.util.List;
  * Created by podisto on 15/01/2022.
  */
 public interface HabitantRepository {
-    void add(List<Habitant> habitants);
+
+    void save(Habitant habitant);
 
     List<Habitant> findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(LocalDate dateCourante);
 }

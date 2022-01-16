@@ -1,10 +1,9 @@
 package com.simba.happycitytolive.infrastructure.inmemory;
 
-import com.simba.happycitytolive.domain.Habitant;
-import com.simba.happycitytolive.domain.HabitantRepository;
+import com.simba.happycitytolive.application.domain.Habitant;
+import com.simba.happycitytolive.application.domain.HabitantRepository;
 
 import java.time.LocalDate;
-import java.time.Period;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,14 +16,14 @@ public class InMemoryHabitantRepository implements HabitantRepository {
     private final List<Habitant> listeHabitants = new LinkedList<>();
 
     @Override
-    public void add(List<Habitant> habitants) {
-        listeHabitants.addAll(habitants);
+    public void save(Habitant habitant) {
+        listeHabitants.add(habitant);
     }
 
     @Override
     public List<Habitant> findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(LocalDate dateCourante) {
         return listeHabitants.stream()
-                .filter(item -> item.isDateArriveeCommuneGreaterThanAYear(dateCourante))
+                .filter(item -> item.isDateArriveeCommuneGreaterThanAYear(dateCourante, 1))
                 .filter(item -> item.getDateAttributionCadeau() == null)
                 .filter(item -> !item.isCadeauOffert())
                 .collect(Collectors.toList());

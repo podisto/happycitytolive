@@ -1,6 +1,6 @@
-package com.simba.happycitytolive.application.dto;
+package com.simba.happycitytolive.application.usecases.dto;
 
-import com.simba.happycitytolive.domain.Habitant;
+import com.simba.happycitytolive.application.domain.Habitant;
 import lombok.Data;
 
 import java.time.LocalDate;
