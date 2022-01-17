@@ -1,6 +1,7 @@
 package com.simba.happycitytolive.application.usecases;
 
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
+import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 
 import java.util.List;
 

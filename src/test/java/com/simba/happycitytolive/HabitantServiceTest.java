@@ -3,7 +3,7 @@ package com.simba.happycitytolive;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.usecases.HabitantService;
 import com.simba.happycitytolive.application.usecases.HabitantServiceImpl;
-import com.simba.happycitytolive.application.usecases.NouvelHabitant;
+import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
 import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.Test;
@@ -38,12 +38,13 @@ class HabitantServiceTest {
     }
 
     private Clock initFixedClock() {
-        LocalDateTime currentDate = LocalDateTime.of(2022, 1, 16, 18, 10);
+        // LocalDateTime currentDate = LocalDateTime.of(2022, 1, 16, 18, 10);
+        LocalDateTime currentDate = LocalDateTime.now();
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
         return Clock.fixed(instant, ZoneId.systemDefault());
     }
 
-    private List<NouvelHabitant> initHabitants() {
+    List<NouvelHabitant> initHabitants() {
         List<NouvelHabitant> habitants = new ArrayList<>();
         NouvelHabitant habitant1 = NouvelHabitant.builder()
                 .nom("Carin")

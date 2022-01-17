@@ -1,4 +1,4 @@
-package com.simba.happycitytolive.application.usecases;
+package com.simba.happycitytolive.application.usecases.dto;
 
 import lombok.Builder;
 import lombok.Data;

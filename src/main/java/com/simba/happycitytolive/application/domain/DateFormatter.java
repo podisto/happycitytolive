@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Created by podisto on 16/01/2022.
  */
-class DateFormatter {
+public class DateFormatter {
 
     private DateFormatter() {}
 

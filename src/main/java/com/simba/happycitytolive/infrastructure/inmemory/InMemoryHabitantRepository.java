@@ -23,9 +23,8 @@ public class InMemoryHabitantRepository implements HabitantRepository {
     @Override
     public List<Habitant> findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(LocalDate dateCourante) {
         return listeHabitants.stream()
-                .filter(item -> item.isDateArriveeCommuneGreaterThanAYear(dateCourante, 1))
-                .filter(item -> item.getDateAttributionCadeau() == null)
-                .filter(item -> !item.isCadeauOffert())
+                .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(dateCourante, 1))
+                .filter(Habitant::hasAnyCadeauOffert)
                 .collect(Collectors.toList());
     }
 }

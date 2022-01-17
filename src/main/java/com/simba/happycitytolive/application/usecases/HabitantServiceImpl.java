@@ -3,6 +3,7 @@ package com.simba.happycitytolive.application.usecases;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
 import com.simba.happycitytolive.application.domain.Habitant;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
+import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 import lombok.RequiredArgsConstructor;
 
 import java.time.Clock;
