@@ -26,7 +26,7 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
         List<Cadeau> cadeauxByTrancheAge = getCadeauxByTrancheAge(habitants);
         for (Cadeau cadeau: cadeauxByTrancheAge) {
             for (Habitant habitant: habitants) {
-                if (cadeau.getTrancheAge().isBetween(habitant.getAge()) && !habitant.isCadeauOffert()) {
+                if (cadeau.getTrancheAge().isBetween(habitant.getAge()) && habitant.hasAnyCadeauOffert()) {
                     CadeauAttribue cadeauOffert = new CadeauAttribue(habitant, cadeau);
                     habitant.setCadeauOffert(true);
                     attributionCadeauRepository.save(cadeauOffert);
