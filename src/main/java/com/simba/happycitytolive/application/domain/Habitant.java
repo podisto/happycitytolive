@@ -23,7 +23,7 @@ public class Habitant {
         this(null, null, null, null, null, null);
     }
 
-    public boolean hasAnyCadeauOffert() {
+    public boolean hasNoCadeauOffert() {
         return !cadeauOffert;
     }
 

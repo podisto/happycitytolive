@@ -24,7 +24,7 @@ public class InMemoryHabitantRepository implements HabitantRepository {
     public List<Habitant> findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(LocalDate dateCourante) {
         return listeHabitants.stream()
                 .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(dateCourante, 1))
-                .filter(Habitant::hasAnyCadeauOffert)
+                .filter(Habitant::hasNoCadeauOffert)
                 .collect(Collectors.toList());
     }
 }
