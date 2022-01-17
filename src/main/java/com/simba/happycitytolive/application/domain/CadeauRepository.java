@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface CadeauRepository {
 
-    List<Cadeau> byTrancheAge(int age);
+    List<Cadeau> byTrancheAge(Habitant habitant);
 
     void save(Cadeau cadeau);
 }

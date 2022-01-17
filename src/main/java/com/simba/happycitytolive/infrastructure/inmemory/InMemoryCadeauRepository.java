@@ -2,6 +2,7 @@ package com.simba.happycitytolive.infrastructure.inmemory;
 
 import com.simba.happycitytolive.application.domain.Cadeau;
 import com.simba.happycitytolive.application.domain.CadeauRepository;
+import com.simba.happycitytolive.application.domain.Habitant;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,9 +16,9 @@ public class InMemoryCadeauRepository implements CadeauRepository {
     private final List<Cadeau> cadeaux = new ArrayList<>();
 
     @Override
-    public List<Cadeau> byTrancheAge(int age) {
+    public List<Cadeau> byTrancheAge(Habitant habitant) {
         return cadeaux.stream()
-                .filter(cadeau -> cadeau.getTrancheAge().isBetween(age))
+                .filter(cadeau -> habitant.ageBetween(cadeau.getTrancheAge()))
                 .collect(Collectors.toList());
     }
 

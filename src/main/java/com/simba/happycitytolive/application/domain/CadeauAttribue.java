@@ -18,4 +18,10 @@ public class CadeauAttribue {
     public String getEmail() {
         return this.habitant.getEmail();
     }
+
+    public String getDetails() {
+        return this.cadeau.getDescription() + " " +
+                "(Montant : " + this.cadeau.getMontant() + "€ - " +
+                "Référence : " + this.cadeau.getReference() + ")";
+    }
 }

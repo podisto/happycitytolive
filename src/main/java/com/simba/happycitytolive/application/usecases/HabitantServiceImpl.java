@@ -24,7 +24,7 @@ public class HabitantServiceImpl implements HabitantService {
     public List<HabitantEligible> getEligibleResidents() {
         LocalDate currentDate = LocalDate.now(clock);
         List<Habitant> habitants = habitantRepository.findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(currentDate);
-        return getHabitantEligibles(habitants);
+        return toDtoList(habitants);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class HabitantServiceImpl implements HabitantService {
 
     }
 
-    private List<HabitantEligible> getHabitantEligibles(List<Habitant> habitants) {
+    private List<HabitantEligible> toDtoList(List<Habitant> habitants) {
         return habitants.stream().map(HabitantEligible::new).collect(Collectors.toList());
     }
 }

@@ -19,10 +19,6 @@ public class Habitant {
     private final String adresse;
     private boolean cadeauOffert;
 
-    private Habitant() {
-        this(null, null, null, null, null, null);
-    }
-
     public boolean hasNoCadeauOffert() {
         return !cadeauOffert;
     }
@@ -40,7 +36,12 @@ public class Habitant {
         return Period.between(this.dateArriveeCommune, currentDate).getYears() >= anneeEligibilite;
     }
 
-    public int getAge() {
+    public boolean ageBetween(TrancheAge trancheAge) {
+        int age = getAge();
+        return age >= trancheAge.getMin() && age <= trancheAge.getMax();
+    }
+
+    private int getAge() {
         LocalDate today = LocalDate.now();
         return Period.between(this.dateNaissance, today).getYears();
     }

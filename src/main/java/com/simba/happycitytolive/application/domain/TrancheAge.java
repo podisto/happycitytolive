@@ -16,8 +16,4 @@ public class TrancheAge {
     private final int min;
     private final int max;
 
-    public boolean isBetween(int age) {
-        return age >= min && age <= max;
-    }
-
 }
