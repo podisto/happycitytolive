@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface NotificationService {
 
-    void sendMail(List<NotificationCadeau> recipients);
+    void sendMail(List<NotificationCadeau> notifications);
 
     List<String> byEmail(String email);
 }

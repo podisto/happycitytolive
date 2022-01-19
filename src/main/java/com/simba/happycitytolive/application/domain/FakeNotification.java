@@ -16,8 +16,8 @@ public class FakeNotification implements NotificationService {
     private final Map<String, List<String>> emails = new HashMap<>();
 
     @Override
-    public void sendMail(List<NotificationCadeau> recipients) {
-        recipients.forEach(recipient -> emails.put(recipient.getEmail(), Collections.singletonList(recipient.getCadeau())));
+    public void sendMail(List<NotificationCadeau> notifications) {
+        notifications.forEach(notification -> emails.put(notification.getEmail(), Collections.singletonList(notification.getCadeau())));
     }
 
     @Override
