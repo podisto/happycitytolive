@@ -24,9 +24,9 @@ public class InMemoryHabitantRepository implements HabitantRepository {
 
     // TODO externaliser la valeur year
     @Override
-    public List<Habitant> findEligibleHabitants(LocalDate current) {
+    public List<Habitant> findEligibleHabitants(LocalDate currentDate) {
         return listeHabitants.stream()
-                .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(current, 1))
+                .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(currentDate, 1))
                 .collect(Collectors.toList());
     }
 }

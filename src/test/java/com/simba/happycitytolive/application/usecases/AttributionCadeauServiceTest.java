@@ -72,7 +72,7 @@ class AttributionCadeauServiceTest {
         attributionCadeauService.attribuerCadeaux();
 
         assertThat(notificationService.byEmail("marie.carin@example.fr").size()).isEqualTo(1);
-        assertThat(notificationService.byEmail("camille.moulin@example.fr").size()).isEqualTo(1);
+        assertThat(notificationService.byEmail("patrick.robin@example.fr").size()).isEqualTo(1);
     }
 
     private Clock initFixedClock() {

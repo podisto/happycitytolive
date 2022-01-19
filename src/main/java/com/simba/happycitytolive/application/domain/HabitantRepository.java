@@ -10,5 +10,5 @@ public interface HabitantRepository {
 
     void save(Habitant habitant);
 
-    List<Habitant> findEligibleHabitants(LocalDate dateCourante);
+    List<Habitant> findEligibleHabitants(LocalDate currentDate);
 }

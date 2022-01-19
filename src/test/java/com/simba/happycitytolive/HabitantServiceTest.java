@@ -38,7 +38,6 @@ class HabitantServiceTest {
     }
 
     private Clock initFixedClock() {
-        // LocalDateTime currentDate = LocalDateTime.of(2022, 1, 16, 18, 10);
         LocalDateTime currentDate = LocalDateTime.now();
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
         return Clock.fixed(instant, ZoneId.systemDefault());
