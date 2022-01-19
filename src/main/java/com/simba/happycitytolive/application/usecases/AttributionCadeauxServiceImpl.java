@@ -32,7 +32,6 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
             for (Habitant habitant: habitants) {
                 if (habitant.ageBetween(cadeau.getTrancheAge()) && habitant.hasNoCadeauOffert()) {
                     CadeauAttribue cadeauOffert = attribuerCadeau(cadeau, habitant);
-                    habitant.setCadeauOffert(true);
                     habitantRepository.save(habitant);
                     recipients.add(new NotificationCadeau(habitant, cadeauOffert.getDetails()));
                 }
@@ -44,6 +43,7 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
     private CadeauAttribue attribuerCadeau(Cadeau cadeau, Habitant habitant) {
         CadeauAttribue cadeauOffert = new CadeauAttribue(habitant, cadeau);
         attributionCadeauRepository.save(cadeauOffert);
+        habitant.setCadeauOffert(true);
         return cadeauOffert;
     }
 

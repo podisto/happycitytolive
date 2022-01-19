@@ -62,7 +62,9 @@ class AttributionCadeauServiceTest {
         assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr")).isNotEmpty();
         assertThat(attributionCadeauRepository.byHabitant("patrick.robin@example.fr")).isNotEmpty();
         assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
-        assertThat(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(20, 30));
+        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
+        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
+        assertThat(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
         assertThat(attributionCadeauRepository.all()).containsOnlyOnce(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get());
         assertThat(attributionCadeauRepository.all()).containsOnlyOnce(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get());
     }

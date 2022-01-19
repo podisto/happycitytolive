@@ -1,4 +1,4 @@
-package com.simba.happycitytolive;
+package com.simba.happycitytolive.application.usecases;
 
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.usecases.HabitantService;

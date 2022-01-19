@@ -7,6 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 /**
@@ -19,7 +20,15 @@ public class InMemoryHabitantRepository implements HabitantRepository {
 
     @Override
     public void save(Habitant habitant) {
-        listeHabitants.add(habitant);
+        if (habitant.getId() == null) {
+            habitant.setId(UUID.randomUUID().toString());
+            listeHabitants.add(habitant);
+        } else {
+            listeHabitants.stream()
+                    .filter(h -> h.getId().equals(habitant.getId()))
+                    .findAny()
+                    .ifPresent(found -> found.setCadeauOffert(habitant.isCadeauOffert()));
+        }
     }
 
     // TODO externaliser la valeur year
