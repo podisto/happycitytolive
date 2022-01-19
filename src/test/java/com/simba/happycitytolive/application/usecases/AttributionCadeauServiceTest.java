@@ -76,7 +76,7 @@ class AttributionCadeauServiceTest {
     }
 
     private Clock initFixedClock() {
-        LocalDateTime currentDate = LocalDateTime.of(2022, 1, 1, 00, 00);
+        LocalDateTime currentDate = LocalDateTime.of(2022, 1, 1, 0, 0);
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
         return Clock.fixed(instant, ZoneId.systemDefault());
     }

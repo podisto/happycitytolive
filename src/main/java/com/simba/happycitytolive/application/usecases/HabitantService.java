@@ -10,7 +10,7 @@ import java.util.List;
  */
 public interface HabitantService {
 
-    List<HabitantEligible> getEligibleResidents();
+    List<HabitantEligible> getEligibleHabitants();
 
     void addResident(NouvelHabitant nouvelHabitant);
 }

@@ -22,7 +22,7 @@ public class HabitantResource {
 
     @GetMapping
     public ResponseEntity<List<HabitantEligible>> getEligibleResidents() {
-        List<HabitantEligible> eligibleResidents = habitantService.getEligibleResidents();
+        List<HabitantEligible> eligibleResidents = habitantService.getEligibleHabitants();
         return ResponseEntity.ok(eligibleResidents);
     }
 }

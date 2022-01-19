@@ -3,8 +3,8 @@ package com.simba.happycitytolive;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.usecases.HabitantService;
 import com.simba.happycitytolive.application.usecases.HabitantServiceImpl;
-import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
+import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.Test;
 
@@ -21,24 +21,24 @@ import static org.assertj.core.api.Assertions.assertThat;
 class HabitantServiceTest {
 
     private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
-    private final Clock clock = initFixedClock();
+    private final Clock clock = initClock();
     private final HabitantService habitantService = new HabitantServiceImpl(habitantRepository, clock);
 
     @Test
-    void retrieveEligibleResidents_shouldReturnResidentsWithArrivalDateGreaterThanAYear() {
+    void getEligibleHabitants_shouldReturnResidentsWithArrivalDateGreaterThanAYear() {
         List<NouvelHabitant> habitants = initHabitants();
         for (NouvelHabitant nouvelHabitant: habitants) {
             habitantService.addResident(nouvelHabitant);
         }
 
-        List<HabitantEligible> habitantEligibles = habitantService.getEligibleResidents();
+        List<HabitantEligible> habitantEligibles = habitantService.getEligibleHabitants();
 
         assertThat(habitantEligibles.size()).isEqualTo(2);
         assertThat(habitantEligibles.get(0).getDateNaissance()).isEqualTo("08/10/1980");
     }
 
-    private Clock initFixedClock() {
-        LocalDateTime currentDate = LocalDateTime.now();
+    private Clock initClock() {
+        LocalDateTime currentDate = LocalDateTime.of(2021, 1, 31, 0, 0);
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
         return Clock.fixed(instant, ZoneId.systemDefault());
     }
@@ -68,7 +68,7 @@ class HabitantServiceTest {
                 .prenom("Camille")
                 .email("camille.moulin@example.fr")
                 .dateNaissance("05/02/2018")
-                .dateArriveeCommune(LocalDate.now().minusYears(1).format(DateTimeFormatter.ofPattern("dd/MM/yyyy")))
+                .dateArriveeCommune("31/01/2020")
                 .adresse("1 rue des Acacias")
                 .build();
 

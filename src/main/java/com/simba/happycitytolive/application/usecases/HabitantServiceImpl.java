@@ -23,7 +23,7 @@ public class HabitantServiceImpl implements HabitantService {
     private final Clock clock;
 
     @Override
-    public List<HabitantEligible> getEligibleResidents() {
+    public List<HabitantEligible> getEligibleHabitants() {
         LocalDate currentDate = LocalDate.now(clock);
         List<Habitant> habitants = habitantRepository.findEligibleHabitants(currentDate);
         return toDtoList(habitants);
