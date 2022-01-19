@@ -23,9 +23,9 @@ class EnvoieMailServiceTest {
     private final AttributionCadeauRepository attributionCadeauRepository = new InMemoryAttributionCadeauRepository();
     private final NotificationService notificationService = mock(NotificationService.class);
     private final Clock clock = initFixedClock();
-    private CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
-    private HabitantRepository habitantRepository = new InMemoryHabitantRepository();
-    private AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
+    private final CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
+    private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
+    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
     private final EnvoieMailService mailService = new EnvoieMailServiceImpl(attributionCadeauRepository, notificationService, clock);
 
     @BeforeEach
