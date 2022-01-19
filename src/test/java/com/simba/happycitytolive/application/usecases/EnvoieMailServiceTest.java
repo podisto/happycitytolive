@@ -6,11 +6,12 @@ import com.simba.happycitytolive.infrastructure.inmemory.InMemoryCadeauRepositor
 import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
@@ -22,11 +23,10 @@ class EnvoieMailServiceTest {
     private final AttributionCadeauRepository attributionCadeauRepository = new InMemoryAttributionCadeauRepository();
     private final NotificationService notificationService = mock(NotificationService.class);
     private final Clock clock = initFixedClock();
-    private final EnvoieMailService mailService = new EnvoieMailServiceImpl(attributionCadeauRepository, notificationService, clock);
-
     private CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
     private HabitantRepository habitantRepository = new InMemoryHabitantRepository();
     private AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
+    private final EnvoieMailService mailService = new EnvoieMailServiceImpl(attributionCadeauRepository, notificationService, clock);
 
     @BeforeEach
     void setUp() {
@@ -58,16 +58,25 @@ class EnvoieMailServiceTest {
     }
 
     @Test
+    void sendMailReport_shouldReturnMessageNoDistributedGifts() {
+
+        AttributionCadeauEmptyException exception = assertThrows(AttributionCadeauEmptyException.class, mailService::sendMailReport);
+
+        assertThat(exception.getMessage()).isEqualTo("Aucun cadeau attribué.");
+    }
+
+    @Test
     void sendMailReport_shouldContainAllDistributedGiftsToday() {
         attributionCadeauService.attribuer();
 
         mailService.sendMailReport();
 
+        verify(notificationService, times(1)).sendMailAnnonceAttribution(anyList());
         verify(notificationService, times(1)).sendMailRecapitulatif(anyList());
     }
 
     private Clock initFixedClock() {
-        LocalDateTime currentDate = LocalDateTime.of(2022, 1, 1, 0, 0);
+        LocalDateTime currentDate = LocalDateTime.now();
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
         return Clock.fixed(instant, ZoneId.systemDefault());
     }
