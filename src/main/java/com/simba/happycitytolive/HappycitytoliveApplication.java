@@ -17,6 +17,7 @@ public class HappycitytoliveApplication implements CommandLineRunner {
 
     @Autowired
     private CadeauRepository cadeauRepository;
+    
     @Autowired
     private HabitantRepository habitantRepository;
 
