@@ -1,4 +1,4 @@
-package com.simba.happycitytolive.infrastructure.rest;
+package com.simba.happycitytolive.infrastructure.entries.rest;
 
 import com.simba.happycitytolive.application.usecases.AttributionCadeauService;
 import lombok.RequiredArgsConstructor;

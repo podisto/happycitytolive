@@ -1,9 +1,9 @@
 package com.simba.happycitytolive.application.usecases;
 
 import com.simba.happycitytolive.application.domain.*;
-import com.simba.happycitytolive.infrastructure.inmemory.InMemoryAttributionCadeauRepository;
-import com.simba.happycitytolive.infrastructure.inmemory.InMemoryCadeauRepository;
-import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
+import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryAttributionCadeauRepository;
+import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryCadeauRepository;
+import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

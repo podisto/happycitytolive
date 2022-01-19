@@ -1,4 +1,4 @@
-package com.simba.happycitytolive.infrastructure.jobs;
+package com.simba.happycitytolive.infrastructure.entries.jobs;
 
 import com.simba.happycitytolive.application.usecases.MailerService;
 import lombok.RequiredArgsConstructor;

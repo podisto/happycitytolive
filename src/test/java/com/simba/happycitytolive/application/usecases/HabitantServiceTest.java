@@ -3,7 +3,7 @@ package com.simba.happycitytolive.application.usecases;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
 import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
-import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
+import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;

@@ -42,7 +42,7 @@ public class Habitant {
     }
 
     private int getAge() {
-        LocalDate today = LocalDate.now();
-        return Period.between(this.dateNaissance, today).getYears();
+        LocalDate now = LocalDate.now();
+        return Period.between(this.dateNaissance, now).getYears();
     }
 }

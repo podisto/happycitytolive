@@ -1,4 +1,4 @@
-package com.simba.happycitytolive.infrastructure.inmemory;
+package com.simba.happycitytolive.infrastructure.persistence.inmemory;
 
 import com.simba.happycitytolive.application.domain.Habitant;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
