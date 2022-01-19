@@ -7,5 +7,5 @@ import java.time.LocalDate;
  */
 public interface AttributionCadeauService {
 
-    void attribuerCadeaux(LocalDate dateArriveeCommune);
+    void attribuerCadeaux();
 }

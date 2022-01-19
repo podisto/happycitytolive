@@ -4,6 +4,7 @@ import com.simba.happycitytolive.application.domain.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
+import java.time.Clock;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -19,22 +20,29 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
     private final CadeauRepository cadeauRepository;
     private final HabitantRepository habitantRepository;
     private final NotificationService notificationService;
+    private final Clock clock;
 
     @Override
-    public void attribuerCadeaux(LocalDate dateArriveeCommune) {
-        List<Habitant> habitants = habitantRepository.findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(dateArriveeCommune);
+    public void attribuerCadeaux() {
+        LocalDate now = LocalDate.now(clock);
+        List<Habitant> habitants = habitantRepository.findEligibleHabitants(now);
         List<Cadeau> cadeauxByTrancheAge = getCadeauxByTrancheAge(habitants);
         for (Cadeau cadeau: cadeauxByTrancheAge) {
             for (Habitant habitant: habitants) {
                 if (habitant.ageBetween(cadeau.getTrancheAge()) && habitant.hasNoCadeauOffert()) {
-                    CadeauAttribue cadeauOffert = new CadeauAttribue(habitant, cadeau);
+                    CadeauAttribue cadeauOffert = attribuerCadeau(cadeau, habitant);
                     habitant.setCadeauOffert(true);
-                    attributionCadeauRepository.save(cadeauOffert);
                     habitantRepository.save(habitant);
                     notificationService.sendMail(habitant, cadeauOffert);
                 }
             }
         }
+    }
+
+    private CadeauAttribue attribuerCadeau(Cadeau cadeau, Habitant habitant) {
+        CadeauAttribue cadeauOffert = new CadeauAttribue(habitant, cadeau);
+        attributionCadeauRepository.save(cadeauOffert);
+        return cadeauOffert;
     }
 
     private List<Cadeau> getCadeauxByTrancheAge(List<Habitant> habitants) {

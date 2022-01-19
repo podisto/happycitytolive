@@ -19,10 +19,6 @@ public class Habitant {
     private final String adresse;
     private boolean cadeauOffert;
 
-    public boolean hasNoCadeauOffert() {
-        return !cadeauOffert;
-    }
-
     public Habitant(String nom, String prenom, String email, String dateNaissance, String dateArrivee, String adresse) {
         this.nom = nom;
         this.prenom = prenom;
@@ -32,8 +28,12 @@ public class Habitant {
         this.adresse = adresse;
     }
 
-    public boolean isDateArriveeCommuneGreaterThanAYear(LocalDate currentDate, int anneeEligibilite) {
-        return Period.between(this.dateArriveeCommune, currentDate).getYears() >= anneeEligibilite;
+    public boolean isDateArriveeCommuneGreaterThanAYear(LocalDate currentDate, int year) {
+        return Period.between(dateArriveeCommune, currentDate).getYears() >= year && hasNoCadeauOffert();
+    }
+
+    public boolean hasNoCadeauOffert() {
+        return !cadeauOffert;
     }
 
     public boolean ageBetween(TrancheAge trancheAge) {

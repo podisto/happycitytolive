@@ -22,11 +22,11 @@ public class InMemoryHabitantRepository implements HabitantRepository {
         listeHabitants.add(habitant);
     }
 
+    // TODO externaliser la valeur year
     @Override
-    public List<Habitant> findByDateArriveeCommuneLessThanAndDateAttributionCadeauIsNullAndCadeauOffertIsFalse(LocalDate dateCourante) {
+    public List<Habitant> findEligibleHabitants(LocalDate current) {
         return listeHabitants.stream()
-                .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(dateCourante, 1))
-                .filter(Habitant::hasNoCadeauOffert)
+                .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(current, 1))
                 .collect(Collectors.toList());
     }
 }

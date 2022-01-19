@@ -7,7 +7,7 @@ import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantReposit
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.time.LocalDate;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -21,7 +21,9 @@ class AttributionCadeauServiceTest {
     private final CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
     private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
     private final NotificationService notificationService = new FakeNotification();
-    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService);
+    private final Clock clock = initFixedClock();
+
+    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
 
     @BeforeEach
     void setUp() {
@@ -54,7 +56,7 @@ class AttributionCadeauServiceTest {
 
     @Test
     void attribuerCadeaux_shouldAttributeCadeauxByTrancheAge() {
-        attributionCadeauService.attribuerCadeaux(LocalDate.of(2022, 1, 1));
+        attributionCadeauService.attribuerCadeaux();
 
         assertThat(attributionCadeauRepository.all().size()).isEqualTo(2);
         assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr")).isNotEmpty();
@@ -67,10 +69,16 @@ class AttributionCadeauServiceTest {
 
     @Test
     void attribuerCadeaux_shouldSendMail() {
-        attributionCadeauService.attribuerCadeaux(LocalDate.of(2022, 1, 17));
+        attributionCadeauService.attribuerCadeaux();
 
         assertThat(notificationService.byEmail("marie.carin@example.fr").size()).isEqualTo(1);
         assertThat(notificationService.byEmail("camille.moulin@example.fr").size()).isEqualTo(1);
+    }
+
+    private Clock initFixedClock() {
+        LocalDateTime currentDate = LocalDateTime.of(2022, 1, 1, 00, 00);
+        Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
+        return Clock.fixed(instant, ZoneId.systemDefault());
     }
 
 }
