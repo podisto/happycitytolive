@@ -37,7 +37,7 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
                 }
             }
         }
-        notificationService.sendMail(recipients);
+        notificationService.sendMailAnnonceAttribution(recipients);
     }
 
     private CadeauAttribue attribuerCadeau(Cadeau cadeau, Habitant habitant) {

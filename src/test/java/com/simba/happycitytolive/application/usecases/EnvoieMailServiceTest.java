@@ -6,25 +6,27 @@ import com.simba.happycitytolive.infrastructure.inmemory.InMemoryCadeauRepositor
 import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.ArgumentMatchers.anyList;
 import static org.mockito.Mockito.*;
 
 /**
- * Created by podisto on 16/01/2022.
+ * Created by podisto on 19/01/2022.
  */
-class AttributionCadeauServiceTest {
+class EnvoieMailServiceTest {
 
     private final AttributionCadeauRepository attributionCadeauRepository = new InMemoryAttributionCadeauRepository();
-    private final CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
-    private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
     private final NotificationService notificationService = mock(NotificationService.class);
     private final Clock clock = initFixedClock();
+    private final EnvoieMailService mailService = new EnvoieMailServiceImpl(attributionCadeauRepository, notificationService, clock);
 
-    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
+    private CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
+    private HabitantRepository habitantRepository = new InMemoryHabitantRepository();
+    private AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
 
     @BeforeEach
     void setUp() {
@@ -56,23 +58,12 @@ class AttributionCadeauServiceTest {
     }
 
     @Test
-    void attribuerCadeaux_shouldAttributeCadeauxByTrancheAge() {
+    void sendMailReport_shouldContainAllDistributedGiftsToday() {
         attributionCadeauService.attribuer();
 
-        assertThat(attributionCadeauRepository.all().size()).isEqualTo(2);
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
-        assertThat(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
-        assertThat(attributionCadeauRepository.all()).containsOnlyOnce(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get());
-        assertThat(attributionCadeauRepository.all()).containsOnlyOnce(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get());
-    }
+        mailService.sendMailReport();
 
-    @Test
-    void attribuerCadeaux_shouldSendMail() {
-        attributionCadeauService.attribuer();
-
-        verify(notificationService, times(1)).sendMailAnnonceAttribution(anyList());
+        verify(notificationService, times(1)).sendMailRecapitulatif(anyList());
     }
 
     private Clock initFixedClock() {
@@ -80,5 +71,4 @@ class AttributionCadeauServiceTest {
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();
         return Clock.fixed(instant, ZoneId.systemDefault());
     }
-
 }

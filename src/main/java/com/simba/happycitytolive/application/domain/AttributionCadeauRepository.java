@@ -1,5 +1,6 @@
 package com.simba.happycitytolive.application.domain;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,4 +14,6 @@ public interface AttributionCadeauRepository {
     void save(CadeauAttribue cadeauOffert);
 
     List<CadeauAttribue> all();
+
+    List<CadeauAttribue> allDistributedGiftsByDay(LocalDate dateAttribution);
 }
