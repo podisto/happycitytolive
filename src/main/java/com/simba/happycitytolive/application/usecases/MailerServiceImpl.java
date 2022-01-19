@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  */
 @RequiredArgsConstructor
 @Slf4j
-public class EnvoieMailServiceImpl implements EnvoieMailService {
+public class MailerServiceImpl implements MailerService {
 
     private final AttributionCadeauRepository attributionCadeauRepository;
     private final NotificationService notificationService;
@@ -24,11 +24,11 @@ public class EnvoieMailServiceImpl implements EnvoieMailService {
     public void sendMailReport() {
         LocalDate now = LocalDate.now(clock);
         List<CadeauAttribue> cadeauxOfferts = attributionCadeauRepository.allDistributedGiftsByDay(now);
-        if (cadeauxOfferts.isEmpty()) {
-            throw new AttributionCadeauEmptyException("Aucun cadeau attribué.");
+        if (!cadeauxOfferts.isEmpty()) {
+            List<NotificationCadeau> notifications = cadeauxOfferts.stream().map(c -> new NotificationCadeau(c.getHabitant(), c.getDetails())).collect(Collectors.toList());
+            notificationService.sendMailRecapitulatif(notifications);
+        } else {
+            log.info("Aucun cadeau attribué de la journée.");
         }
-
-        List<NotificationCadeau> notifications = cadeauxOfferts.stream().map(c -> new NotificationCadeau(c.getHabitant(), c.getDetails())).collect(Collectors.toList());
-        notificationService.sendMailRecapitulatif(notifications);
     }
 }

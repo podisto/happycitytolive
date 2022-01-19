@@ -24,6 +24,7 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
 
     @Override
     public void attribuer() {
+        log.info("attribuer cadeaux");
         LocalDate now = LocalDate.now(clock);
         List<Habitant> habitants = habitantRepository.findEligibleHabitants(now);
         List<Cadeau> cadeauxByTrancheAge = getCadeauxByTrancheAge(habitants);

@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 /**
  * Created by podisto on 19/01/2022.
  */
-class EnvoieMailServiceTest {
+class MailerServiceTest {
 
     private final AttributionCadeauRepository attributionCadeauRepository = new InMemoryAttributionCadeauRepository();
     private final NotificationService notificationService = mock(NotificationService.class);
@@ -26,7 +26,7 @@ class EnvoieMailServiceTest {
     private final CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
     private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
     private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
-    private final EnvoieMailService mailService = new EnvoieMailServiceImpl(attributionCadeauRepository, notificationService, clock);
+    private final MailerService mailService = new MailerServiceImpl(attributionCadeauRepository, notificationService, clock);
 
     @BeforeEach
     void setUp() {
@@ -59,10 +59,9 @@ class EnvoieMailServiceTest {
 
     @Test
     void sendMailReport_shouldReturnMessageNoDistributedGifts() {
+        mailService.sendMailReport();
 
-        AttributionCadeauEmptyException exception = assertThrows(AttributionCadeauEmptyException.class, mailService::sendMailReport);
-
-        assertThat(exception.getMessage()).isEqualTo("Aucun cadeau attribué.");
+        verify(notificationService, times(0)).sendMailRecapitulatif(anyList());
     }
 
     @Test

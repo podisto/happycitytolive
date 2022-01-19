@@ -4,10 +4,7 @@ import com.simba.happycitytolive.application.domain.AttributionCadeauRepository;
 import com.simba.happycitytolive.application.domain.CadeauRepository;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.domain.NotificationService;
-import com.simba.happycitytolive.application.usecases.AttributionCadeauService;
-import com.simba.happycitytolive.application.usecases.AttributionCadeauxServiceImpl;
-import com.simba.happycitytolive.application.usecases.HabitantService;
-import com.simba.happycitytolive.application.usecases.HabitantServiceImpl;
+import com.simba.happycitytolive.application.usecases.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -35,5 +32,10 @@ public class BeanConfiguration {
     public AttributionCadeauService attributionCadeauService(AttributionCadeauRepository attributionCadeauRepository, CadeauRepository cadeauRepository, HabitantRepository habitantRepository,
                                                              NotificationService notificationService, Clock clock) {
         return new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
+    }
+
+    @Bean
+    public MailerService mailerService(AttributionCadeauRepository attributionCadeauRepository, NotificationService notificationService, Clock clock) {
+        return new MailerServiceImpl(attributionCadeauRepository, notificationService, clock);
     }
 }
