@@ -23,7 +23,7 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
     private final Clock clock;
 
     @Override
-    public void attribuerCadeaux() {
+    public void attribuer() {
         LocalDate now = LocalDate.now(clock);
         List<Habitant> habitants = habitantRepository.findEligibleHabitants(now);
         List<Cadeau> cadeauxByTrancheAge = getCadeauxByTrancheAge(habitants);

@@ -56,11 +56,9 @@ class AttributionCadeauServiceTest {
 
     @Test
     void attribuerCadeaux_shouldAttributeCadeauxByTrancheAge() {
-        attributionCadeauService.attribuerCadeaux();
+        attributionCadeauService.attribuer();
 
         assertThat(attributionCadeauRepository.all().size()).isEqualTo(2);
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr")).isNotEmpty();
-        assertThat(attributionCadeauRepository.byHabitant("patrick.robin@example.fr")).isNotEmpty();
         assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
         assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
         assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
@@ -71,7 +69,7 @@ class AttributionCadeauServiceTest {
 
     @Test
     void attribuerCadeaux_shouldSendMail() {
-        attributionCadeauService.attribuerCadeaux();
+        attributionCadeauService.attribuer();
 
         assertThat(notificationService.byEmail("marie.carin@example.fr").size()).isEqualTo(1);
         assertThat(notificationService.byEmail("patrick.robin@example.fr").size()).isEqualTo(1);

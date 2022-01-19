@@ -1,8 +1,6 @@
 package com.simba.happycitytolive.application.usecases;
 
 import com.simba.happycitytolive.application.domain.HabitantRepository;
-import com.simba.happycitytolive.application.usecases.HabitantService;
-import com.simba.happycitytolive.application.usecases.HabitantServiceImpl;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
 import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 import com.simba.happycitytolive.infrastructure.inmemory.InMemoryHabitantRepository;
@@ -28,7 +26,7 @@ class HabitantServiceTest {
     void getEligibleHabitants_shouldReturnResidentsWithArrivalDateGreaterThanAYear() {
         List<NouvelHabitant> habitants = initHabitants();
         for (NouvelHabitant nouvelHabitant: habitants) {
-            habitantService.addResident(nouvelHabitant);
+            habitantService.addHabitant(nouvelHabitant);
         }
 
         List<HabitantEligible> habitantEligibles = habitantService.getEligibleHabitants();

@@ -12,5 +12,5 @@ public interface HabitantService {
 
     List<HabitantEligible> getEligibleHabitants();
 
-    void addResident(NouvelHabitant nouvelHabitant);
+    void addHabitant(NouvelHabitant nouvelHabitant);
 }

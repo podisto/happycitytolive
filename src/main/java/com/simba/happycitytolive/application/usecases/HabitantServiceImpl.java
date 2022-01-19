@@ -30,7 +30,7 @@ public class HabitantServiceImpl implements HabitantService {
     }
 
     @Override
-    public void addResident(NouvelHabitant nouvelHabitant) {
+    public void addHabitant(NouvelHabitant nouvelHabitant) {
         Habitant habitant = new Habitant(nouvelHabitant.getNom(), nouvelHabitant.getPrenom(), nouvelHabitant.getEmail(),
                 nouvelHabitant.getDateNaissance(), nouvelHabitant.getDateArriveeCommune(), nouvelHabitant.getAdresse());
         habitantRepository.save(habitant);

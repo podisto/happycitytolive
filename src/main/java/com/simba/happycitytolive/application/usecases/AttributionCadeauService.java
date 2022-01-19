@@ -5,5 +5,5 @@ package com.simba.happycitytolive.application.usecases;
  */
 public interface AttributionCadeauService {
 
-    void attribuerCadeaux();
+    void attribuer();
 }
