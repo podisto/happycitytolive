@@ -19,7 +19,7 @@ public class CadeauResource {
 
     @PostMapping("/attribuer")
     public ResponseEntity<Void> attribuer() {
-        attributionCadeauService.attribuer();
+        attributionCadeauService.attribuerCadeaux();
         return ResponseEntity.ok().build();
     }
 }

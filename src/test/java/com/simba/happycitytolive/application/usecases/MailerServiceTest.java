@@ -62,7 +62,7 @@ class MailerServiceTest {
 
     @Test
     void sendMailReport_shouldContainAllDistributedGiftsToday() {
-        attributionCadeauService.attribuer();
+        attributionCadeauService.attribuerCadeaux();
 
         mailService.sendMailReport();
 

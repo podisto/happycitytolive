@@ -55,7 +55,7 @@ class AttributionCadeauServiceTest {
 
     @Test
     void attribuerCadeaux_shouldAttributeCadeauxByTrancheAge() {
-        attributionCadeauService.attribuer();
+        attributionCadeauService.attribuerCadeaux();
 
         assertThat(cadeauHabitantRepository.all().size()).isEqualTo(2);
         assertThatCadeauHabitantIsInTrancheAge("marie.carin@example.fr", 40, 50);
@@ -76,7 +76,7 @@ class AttributionCadeauServiceTest {
 
     @Test
     void attribuerCadeaux_shouldSendMail() {
-        attributionCadeauService.attribuer();
+        attributionCadeauService.attribuerCadeaux();
 
         verify(notificationService, times(1)).sendMailAnnonceAttribution(anyList());
     }
