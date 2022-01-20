@@ -18,4 +18,8 @@ public class NotificationCadeau {
         this.email = habitant.getEmail();
         this.cadeau = cadeau;
     }
+
+    public String getContent() {
+        return prenom.concat(" ").concat(nom).concat(": ").concat(cadeau);
+    }
 }

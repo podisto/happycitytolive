@@ -14,4 +14,5 @@ public class MailProperties {
     private String from;
     private String host;
     private int port;
+    private String emailMairie;
 }

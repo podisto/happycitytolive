@@ -2,3 +2,4 @@ mail:
   from: noreply@happycitytolive.com
   host: localhost
   port: 25
+  email-mairie: noreply@service-cadeau.com

@@ -34,7 +34,13 @@ public class NotificationServiceAdapter implements NotificationService {
     @Async
     @Override
     public void sendMailRecapitulatif(List<NotificationCadeau> notifications) {
-        log.info("envoie mail récapitulatif");
+        log.info("envoie mail récapitulatif au service Cadeau");
+        StringBuilder sb = new StringBuilder();
+        for (NotificationCadeau notification: notifications) {
+            sb.append("\n").append(notification.getContent());
+        }
+        String content = sb.toString();
+        send(properties.getEmailMairie(), "Récapitulatif des Cadeaux attribués", content);
     }
 
     private void send(String to, String subject, String content) {
