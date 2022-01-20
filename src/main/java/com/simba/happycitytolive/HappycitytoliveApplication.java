@@ -8,16 +8,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.context.properties.EnableConfigurationProperties;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 @SpringBootApplication
+@EnableConfigurationProperties
 public class HappycitytoliveApplication implements CommandLineRunner {
 
     @Autowired
     private CadeauRepository cadeauRepository;
-    
+
     @Autowired
     private HabitantRepository habitantRepository;
 
@@ -28,6 +30,18 @@ public class HappycitytoliveApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
+        saveHabitants();
+        saveCadeaux();
+    }
+
+    private void saveHabitants() {
+        habitantRepository.save(new Habitant("Carin", "Marie", "marie.carin@example.fr", "08/10/1980", "01/12/2016", "12 rue des Lilas"));
+        habitantRepository.save(new Habitant("Robin", "Patrick", "patrick.robin@example.fr", "12/06/2000", "01/01/2020", "1 rue des Acacias"));
+        String dateArriveeCamille = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        habitantRepository.save(new Habitant("Moulin", "Camille", "camille.moulin@example.fr", "05/02/2018", dateArriveeCamille, "1 rue des Acacias"));
+    }
+
+    private void saveCadeaux() {
         cadeauRepository.save(new Cadeau("70d73d02", "Peluche oggy et les cafards", 11.99, 0, 3));
         cadeauRepository.save(new Cadeau("c01c31a3", "Cheval floppy", 14.99, 0, 3));
         cadeauRepository.save(new Cadeau("b3f83de3", "Pistolet à bulles à led", 8.79, 3, 6));
@@ -48,11 +62,5 @@ public class HappycitytoliveApplication implements CommandLineRunner {
         cadeauRepository.save(new Cadeau("e72cfae4", "Coussin chauffant", 22.90, 50, 60));
         cadeauRepository.save(new Cadeau("b9dcca0d", "Chocolats Toblerone", 12.90, 60, 150));
         cadeauRepository.save(new Cadeau("90a2efeb", "Tasse photo", 13.90, 60, 150));
-
-        habitantRepository.save(new Habitant("Carin", "Marie", "marie.carin@example.fr", "08/10/1980", "01/12/2016", "12 rue des Lilas"));
-        habitantRepository.save(new Habitant("Robin", "Patrick", "patrick.robin@example.fr", "12/06/2000", "01/01/2020", "1 rue des Acacias"));
-        String dateArriveeCamille = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        habitantRepository.save(new Habitant("Moulin", "Camille", "camille.moulin@example.fr", "05/02/2018", dateArriveeCamille, "1 rue des Acacias"));
-
     }
 }

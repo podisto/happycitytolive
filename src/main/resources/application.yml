@@ -1,0 +1,4 @@
+mail:
+  from: noreply@happycitytolive.com
+  host: localhost
+  port: 25
