@@ -58,14 +58,20 @@ class AttributionCadeauServiceTest {
         attributionCadeauService.attribuer();
 
         assertThat(attributionCadeauRepository.all().size()).isEqualTo(2);
-        CadeauHabitant cadeauMarie = attributionCadeauRepository.byHabitant("marie.carin@example.fr").get();
-        CadeauHabitant cadeauPatrick = attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get();
+        assertThatCadeauHabitantIsInTrancheAge("marie.carin@example.fr", 40, 50);
+        assertThatCadeauHabitantIsInTrancheAge("patrick.robin@example.fr", 20, 30);
 
-        assertThat(cadeauRepository.byReference(cadeauMarie.getReference()).get().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
-        assertThat(cadeauRepository.byReference(cadeauPatrick.getReference()).get().getTrancheAge()).isEqualTo(new TrancheAge(20, 30));
+        assertThatHabitantHasReceivedHisCadeau("marie.carin@example.fr");
+        assertThatHabitantHasReceivedHisCadeau("patrick.robin@example.fr");
+    }
 
-        assertThat(habitantRepository.byEmail("marie.carin@example.fr").get().isCadeauOffert()).isTrue();
-        assertThat(habitantRepository.byEmail("patrick.robin@example.fr").get().isCadeauOffert()).isTrue();
+    private void assertThatCadeauHabitantIsInTrancheAge(String habitant, int min, int max) {
+        CadeauHabitant cadeauHabitant = attributionCadeauRepository.byHabitant(habitant).get();
+        assertThat(cadeauRepository.byReference(cadeauHabitant.getReference()).get().getTrancheAge()).isEqualTo(new TrancheAge(min, max));
+    }
+
+    private void assertThatHabitantHasReceivedHisCadeau(String habitant) {
+        assertThat(habitantRepository.byEmail(habitant).get().isCadeauOffert()).isTrue();
     }
 
     @Test
