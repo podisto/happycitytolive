@@ -1,7 +1,6 @@
 package com.simba.happycitytolive.application.domain;
 
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.ToString;
 
 import java.math.BigDecimal;
@@ -11,7 +10,6 @@ import java.math.BigDecimal;
  */
 @Getter
 @ToString
-@RequiredArgsConstructor
 public class Cadeau {
     private final String reference;
     private final String description;
@@ -24,4 +22,5 @@ public class Cadeau {
         this.montant = BigDecimal.valueOf(montant);
         this.trancheAge = new TrancheAge(min, max);
     }
+
 }

@@ -9,11 +9,11 @@ import java.util.Optional;
  */
 public interface AttributionCadeauRepository {
 
-    Optional<CadeauAttribue> byHabitant(String email);
+    Optional<CadeauHabitant> byHabitant(String email);
 
-    void save(CadeauAttribue cadeauOffert);
+    void save(CadeauHabitant cadeauOffert);
 
-    List<CadeauAttribue> all();
+    List<CadeauHabitant> all();
 
-    List<CadeauAttribue> allDistributedGiftsByDay(LocalDate dateAttribution);
+    List<CadeauHabitant> allDistributedGiftsByDay(LocalDate dateAttribution);
 }

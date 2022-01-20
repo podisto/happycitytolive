@@ -1,6 +1,6 @@
 package com.simba.happycitytolive.infrastructure.mail;
 
-import com.simba.happycitytolive.application.domain.NotificationCadeau;
+import com.simba.happycitytolive.application.domain.Notification;
 import com.simba.happycitytolive.application.domain.NotificationService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,21 +26,20 @@ public class NotificationServiceAdapter implements NotificationService {
 
     @Async
     @Override
-    public void sendMailAnnonceAttribution(List<NotificationCadeau> notifications) {
+    public void sendMailAnnonceAttribution(List<Notification> notifications) {
         log.info("envoie mail annonce attribution cadeau");
-        notifications.parallelStream().forEach(notification -> send(notification.getEmail(), "[Kaolack] - Joyeux anniversaire", notification.getCadeau()));
+        notifications.parallelStream().forEach(notification -> send(notification.getEmail(), "[Kaolack] - Joyeux anniversaire", notification.getMessage()));
     }
 
     @Async
     @Override
-    public void sendMailRecapitulatif(List<NotificationCadeau> notifications) {
+    public void sendMailRecapitulatif(List<Notification> notifications) {
         log.info("envoie mail récapitulatif au service Cadeau");
         StringBuilder sb = new StringBuilder();
-        for (NotificationCadeau notification: notifications) {
-            sb.append("\n").append(notification.getContent());
+        for (Notification notification: notifications) {
+            sb.append("\n").append(notification.getMessage());
         }
-        String content = sb.toString();
-        send(properties.getEmailMairie(), "Récapitulatif des Cadeaux attribués", content);
+        send(properties.getEmailMairie(), "Récapitulatif des Cadeaux attribués", sb.toString());
     }
 
     private void send(String to, String subject, String content) {

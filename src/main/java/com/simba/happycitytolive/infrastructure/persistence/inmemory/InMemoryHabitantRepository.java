@@ -5,8 +5,9 @@ import com.simba.happycitytolive.application.domain.HabitantRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -16,7 +17,7 @@ import java.util.stream.Collectors;
 @Slf4j
 public class InMemoryHabitantRepository implements HabitantRepository {
 
-    private final List<Habitant> listeHabitants = new LinkedList<>();
+    private final List<Habitant> listeHabitants = new ArrayList<>();
 
     @Override
     public void save(Habitant habitant) {
@@ -31,11 +32,15 @@ public class InMemoryHabitantRepository implements HabitantRepository {
         }
     }
 
-    // TODO externaliser la valeur year
     @Override
     public List<Habitant> findEligibleHabitants(LocalDate currentDate) {
         return listeHabitants.stream()
                 .filter(habitant -> habitant.isDateArriveeCommuneGreaterThanAYear(currentDate, 1))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Optional<Habitant> byEmail(String email) {
+        return listeHabitants.stream().filter(h -> h.getEmail().equals(email)).findAny();
     }
 }

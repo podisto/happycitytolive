@@ -6,6 +6,7 @@ import com.simba.happycitytolive.application.domain.Habitant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 /**
@@ -25,5 +26,10 @@ public class InMemoryCadeauRepository implements CadeauRepository {
     @Override
     public void save(Cadeau cadeau) {
         cadeaux.add(cadeau);
+    }
+
+    @Override
+    public Optional<Cadeau> byReference(String reference) {
+        return cadeaux.stream().filter(c -> c.getReference().equals(reference)).findAny();
     }
 }

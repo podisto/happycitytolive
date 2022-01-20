@@ -1,5 +1,6 @@
 package com.simba.happycitytolive.application.usecases;
 
+import com.simba.happycitytolive.application.domain.DateFormatter;
 import com.simba.happycitytolive.application.domain.Habitant;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
@@ -32,7 +33,7 @@ public class HabitantServiceImpl implements HabitantService {
     @Override
     public void addHabitant(NouvelHabitant nouvelHabitant) {
         Habitant habitant = new Habitant(nouvelHabitant.getNom(), nouvelHabitant.getPrenom(), nouvelHabitant.getEmail(),
-                nouvelHabitant.getDateNaissance(), nouvelHabitant.getDateArriveeCommune(), nouvelHabitant.getAdresse());
+                DateFormatter.toDate(nouvelHabitant.getDateNaissance()), DateFormatter.toDate(nouvelHabitant.getDateArriveeCommune()), nouvelHabitant.getAdresse());
         habitantRepository.save(habitant);
 
     }

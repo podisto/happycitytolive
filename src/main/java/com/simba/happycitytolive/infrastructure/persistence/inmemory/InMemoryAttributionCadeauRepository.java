@@ -1,7 +1,7 @@
 package com.simba.happycitytolive.infrastructure.persistence.inmemory;
 
 import com.simba.happycitytolive.application.domain.AttributionCadeauRepository;
-import com.simba.happycitytolive.application.domain.CadeauAttribue;
+import com.simba.happycitytolive.application.domain.CadeauHabitant;
 import lombok.extern.slf4j.Slf4j;
 
 import java.time.LocalDate;
@@ -16,25 +16,25 @@ import java.util.stream.Collectors;
 @Slf4j
 public class InMemoryAttributionCadeauRepository implements AttributionCadeauRepository {
 
-    private final List<CadeauAttribue> cadeauxOfferts = new ArrayList<>();
+    private final List<CadeauHabitant> cadeauxOfferts = new ArrayList<>();
 
     @Override
-    public Optional<CadeauAttribue> byHabitant(String email) {
+    public Optional<CadeauHabitant> byHabitant(String email) {
         return cadeauxOfferts.stream().filter(cadeau -> cadeau.getEmail().equals(email)).findAny();
     }
 
     @Override
-    public void save(CadeauAttribue cadeauOffert) {
+    public void save(CadeauHabitant cadeauOffert) {
         cadeauxOfferts.add(cadeauOffert);
     }
 
     @Override
-    public List<CadeauAttribue> all() {
+    public List<CadeauHabitant> all() {
         return cadeauxOfferts;
     }
 
     @Override
-    public List<CadeauAttribue> allDistributedGiftsByDay(LocalDate dateAttribution) {
+    public List<CadeauHabitant> allDistributedGiftsByDay(LocalDate dateAttribution) {
         return cadeauxOfferts.stream()
                 .filter(c -> c.getDateAttribution().isEqual(dateAttribution))
                 .collect(Collectors.toList());

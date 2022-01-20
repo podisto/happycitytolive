@@ -23,9 +23,11 @@ public class MailerServiceImpl implements MailerService {
     @Override
     public void sendMailReport() {
         LocalDate now = LocalDate.now(clock);
-        List<CadeauAttribue> cadeauxOfferts = attributionCadeauRepository.allDistributedGiftsByDay(now);
+        List<CadeauHabitant> cadeauxOfferts = attributionCadeauRepository.allDistributedGiftsByDay(now);
         if (!cadeauxOfferts.isEmpty()) {
-            List<NotificationCadeau> notifications = cadeauxOfferts.stream().map(c -> new NotificationCadeau(c.getHabitant(), c.getDetails())).collect(Collectors.toList());
+            List<Notification> notifications = cadeauxOfferts.stream()
+                    .map(c -> new Notification(c.getNom(), c.getPrenom(), c.getEmail(), c.getDetails()))
+                    .collect(Collectors.toList());
             notificationService.sendMailRecapitulatif(notifications);
         } else {
             log.info("Aucun cadeau attribué de la journée.");

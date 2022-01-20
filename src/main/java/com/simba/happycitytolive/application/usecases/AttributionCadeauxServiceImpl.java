@@ -28,24 +28,18 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
         LocalDate now = LocalDate.now(clock);
         List<Habitant> habitants = habitantRepository.findEligibleHabitants(now);
         List<Cadeau> cadeauxByTrancheAge = getCadeauxByTrancheAge(habitants);
-        List<NotificationCadeau> recipients = new ArrayList<>();
+        List<Notification> recipients = new ArrayList<>();
         for (Cadeau cadeau: cadeauxByTrancheAge) {
             for (Habitant habitant: habitants) {
                 if (habitant.ageBetween(cadeau.getTrancheAge()) && habitant.hasNoCadeauOffert()) {
-                    CadeauAttribue cadeauOffert = attribuerCadeau(cadeau, habitant);
+                    CadeauHabitant cadeauOffert = habitant.attribuerCadeau(cadeau);
+                    attributionCadeauRepository.save(cadeauOffert);
                     habitantRepository.save(habitant);
-                    recipients.add(new NotificationCadeau(habitant, cadeauOffert.getDetails()));
+                    recipients.add(new Notification(habitant.getNom(), habitant.getPrenom(), habitant.getEmail(), cadeauOffert.getDetails()));
                 }
             }
         }
         notificationService.sendMailAnnonceAttribution(recipients);
-    }
-
-    private CadeauAttribue attribuerCadeau(Cadeau cadeau, Habitant habitant) {
-        CadeauAttribue cadeauOffert = new CadeauAttribue(habitant, cadeau);
-        attributionCadeauRepository.save(cadeauOffert);
-        habitant.setCadeauOffert(true);
-        return cadeauOffert;
     }
 
     private List<Cadeau> getCadeauxByTrancheAge(List<Habitant> habitants) {

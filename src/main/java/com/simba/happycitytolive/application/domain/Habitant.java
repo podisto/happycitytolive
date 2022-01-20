@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.Period;
+import java.util.UUID;
 
 /**
  * Created by podisto on 15/01/2022.
@@ -19,12 +20,12 @@ public class Habitant {
     private final String adresse;
     private boolean cadeauOffert;
 
-    public Habitant(String nom, String prenom, String email, String dateNaissance, String dateArrivee, String adresse) {
+    public Habitant(String nom, String prenom, String email, LocalDate dateNaissance, LocalDate dateArrivee, String adresse) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
-        this.dateNaissance = DateFormatter.toDate(dateNaissance);
-        this.dateArriveeCommune = DateFormatter.toDate(dateArrivee);
+        this.dateNaissance = dateNaissance;
+        this.dateArriveeCommune = dateArrivee;
         this.adresse = adresse;
     }
 
@@ -41,8 +42,14 @@ public class Habitant {
         return age >= trancheAge.getMin() && age <= trancheAge.getMax();
     }
 
-    private int getAge() {
+    public int getAge() {
         LocalDate now = LocalDate.now();
         return Period.between(this.dateNaissance, now).getYears();
+    }
+
+    public CadeauHabitant attribuerCadeau(Cadeau cadeau) {
+        CadeauHabitant cadeauHabitant = new CadeauHabitant(this, cadeau);
+        this.cadeauOffert = true;
+        return cadeauHabitant;
     }
 }

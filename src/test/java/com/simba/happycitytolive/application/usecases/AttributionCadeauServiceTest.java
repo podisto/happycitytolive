@@ -8,7 +8,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.time.*;
-import java.time.format.DateTimeFormatter;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.*;
@@ -49,10 +48,9 @@ class AttributionCadeauServiceTest {
         cadeauRepository.save(new Cadeau("b9dcca0d", "Chocolats Toblerone", 12.90, 60, 150));
         cadeauRepository.save(new Cadeau("90a2efeb", "Tasse photo", 13.90, 60, 150));
 
-        habitantRepository.save(new Habitant("Carin", "Marie", "marie.carin@example.fr", "08/10/1980", "01/12/2016", "12 rue des Lilas"));
-        habitantRepository.save(new Habitant("Robin", "Patrick", "patrick.robin@example.fr", "12/06/2000", "01/01/2020", "1 rue des Acacias"));
-        String dateArriveeCamille = LocalDate.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        habitantRepository.save(new Habitant("Moulin", "Camille", "camille.moulin@example.fr", "05/02/2018", dateArriveeCamille, "1 rue des Acacias"));
+        habitantRepository.save(new Habitant("Carin", "Marie", "marie.carin@example.fr", LocalDate.of(1980, 10, 8) , LocalDate.of(2016, 12, 1),"12 rue des Lilas"));
+        habitantRepository.save(new Habitant("Robin", "Patrick", "patrick.robin@example.fr", LocalDate.of(2000, 6, 12), LocalDate.of(2020, 1, 1), "1 rue des Acacias"));
+        habitantRepository.save(new Habitant("Moulin", "Camille", "camille.moulin@example.fr", LocalDate.of(2018, 2, 5), LocalDate.now(), "1 rue des Acacias"));
     }
 
     @Test
@@ -60,12 +58,14 @@ class AttributionCadeauServiceTest {
         attributionCadeauService.attribuer();
 
         assertThat(attributionCadeauRepository.all().size()).isEqualTo(2);
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getCadeau().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
-        assertThat(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
-        assertThat(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get().getHabitant().isCadeauOffert()).isTrue();
-        assertThat(attributionCadeauRepository.all()).containsOnlyOnce(attributionCadeauRepository.byHabitant("marie.carin@example.fr").get());
-        assertThat(attributionCadeauRepository.all()).containsOnlyOnce(attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get());
+        CadeauHabitant cadeauMarie = attributionCadeauRepository.byHabitant("marie.carin@example.fr").get();
+        CadeauHabitant cadeauPatrick = attributionCadeauRepository.byHabitant("patrick.robin@example.fr").get();
+
+        assertThat(cadeauRepository.byReference(cadeauMarie.getReference()).get().getTrancheAge()).isEqualTo(new TrancheAge(40, 50));
+        assertThat(cadeauRepository.byReference(cadeauPatrick.getReference()).get().getTrancheAge()).isEqualTo(new TrancheAge(20, 30));
+
+        assertThat(habitantRepository.byEmail("marie.carin@example.fr").get().isCadeauOffert()).isTrue();
+        assertThat(habitantRepository.byEmail("patrick.robin@example.fr").get().isCadeauOffert()).isTrue();
     }
 
     @Test

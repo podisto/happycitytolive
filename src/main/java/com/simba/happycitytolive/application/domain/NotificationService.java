@@ -7,7 +7,7 @@ import java.util.List;
  */
 public interface NotificationService {
 
-    void sendMailAnnonceAttribution(List<NotificationCadeau> notifications);
+    void sendMailAnnonceAttribution(List<Notification> notifications);
 
-    void sendMailRecapitulatif(List<NotificationCadeau> notifications);
+    void sendMailRecapitulatif(List<Notification> notifications);
 }
