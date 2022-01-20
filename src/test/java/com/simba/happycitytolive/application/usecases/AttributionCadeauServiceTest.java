@@ -1,7 +1,7 @@
 package com.simba.happycitytolive.application.usecases;
 
 import com.simba.happycitytolive.application.domain.*;
-import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryAttributionCadeauRepository;
+import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryCadeauHabitantRepository;
 import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryCadeauRepository;
 import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +17,13 @@ import static org.mockito.Mockito.*;
  */
 class AttributionCadeauServiceTest {
 
-    private final AttributionCadeauRepository attributionCadeauRepository = new InMemoryAttributionCadeauRepository();
+    private final CadeauHabitantRepository cadeauHabitantRepository = new InMemoryCadeauHabitantRepository();
     private final CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
     private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
     private final NotificationService notificationService = mock(NotificationService.class);
     private final Clock clock = initFixedClock();
 
-    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
+    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(cadeauHabitantRepository, cadeauRepository, habitantRepository, notificationService, clock);
 
     @BeforeEach
     void setUp() {
@@ -57,7 +57,7 @@ class AttributionCadeauServiceTest {
     void attribuerCadeaux_shouldAttributeCadeauxByTrancheAge() {
         attributionCadeauService.attribuer();
 
-        assertThat(attributionCadeauRepository.all().size()).isEqualTo(2);
+        assertThat(cadeauHabitantRepository.all().size()).isEqualTo(2);
         assertThatCadeauHabitantIsInTrancheAge("marie.carin@example.fr", 40, 50);
         assertThatCadeauHabitantIsInTrancheAge("patrick.robin@example.fr", 20, 30);
 
@@ -66,7 +66,7 @@ class AttributionCadeauServiceTest {
     }
 
     private void assertThatCadeauHabitantIsInTrancheAge(String habitant, int min, int max) {
-        CadeauHabitant cadeauHabitant = attributionCadeauRepository.byHabitant(habitant).get();
+        CadeauHabitant cadeauHabitant = cadeauHabitantRepository.byHabitant(habitant).get();
         assertThat(cadeauRepository.byReference(cadeauHabitant.getReference()).get().getTrancheAge()).isEqualTo(new TrancheAge(min, max));
     }
 

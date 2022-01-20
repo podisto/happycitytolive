@@ -1,11 +1,11 @@
 package com.simba.happycitytolive.infrastructure.config;
 
-import com.simba.happycitytolive.application.domain.AttributionCadeauRepository;
+import com.simba.happycitytolive.application.domain.CadeauHabitantRepository;
 import com.simba.happycitytolive.application.domain.CadeauRepository;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
+import com.simba.happycitytolive.infrastructure.persistence.adapters.CadeauHabitantJpaAdapter;
 import com.simba.happycitytolive.infrastructure.persistence.adapters.CadeauJpaAdapter;
 import com.simba.happycitytolive.infrastructure.persistence.adapters.HabitantJpaAdapter;
-import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryAttributionCadeauRepository;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -21,8 +21,8 @@ public class RepositoriesConfiguration {
     }
 
     @Bean
-    public AttributionCadeauRepository attributionCadeauRepository() {
-        return new InMemoryAttributionCadeauRepository();
+    public CadeauHabitantRepository cadeauHabitantRepository() {
+        return new CadeauHabitantJpaAdapter();
     }
 
     @Bean

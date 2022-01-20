@@ -1,6 +1,6 @@
 package com.simba.happycitytolive.infrastructure.persistence.inmemory;
 
-import com.simba.happycitytolive.application.domain.AttributionCadeauRepository;
+import com.simba.happycitytolive.application.domain.CadeauHabitantRepository;
 import com.simba.happycitytolive.application.domain.CadeauHabitant;
 import lombok.extern.slf4j.Slf4j;
 
@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
  * Created by podisto on 16/01/2022.
  */
 @Slf4j
-public class InMemoryAttributionCadeauRepository implements AttributionCadeauRepository {
+public class InMemoryCadeauHabitantRepository implements CadeauHabitantRepository {
 
     private final List<CadeauHabitant> cadeauxOfferts = new ArrayList<>();
 

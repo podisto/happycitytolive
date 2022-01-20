@@ -7,7 +7,7 @@ import java.util.Optional;
 /**
  * Created by podisto on 16/01/2022.
  */
-public interface AttributionCadeauRepository {
+public interface CadeauHabitantRepository {
 
     Optional<CadeauHabitant> byHabitant(String email);
 

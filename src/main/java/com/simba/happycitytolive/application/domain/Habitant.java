@@ -4,7 +4,6 @@ import lombok.Data;
 
 import java.time.LocalDate;
 import java.time.Period;
-import java.util.UUID;
 
 /**
  * Created by podisto on 15/01/2022.
@@ -48,7 +47,8 @@ public class Habitant {
     }
 
     public CadeauHabitant attribuerCadeau(Cadeau cadeau) {
-        CadeauHabitant cadeauHabitant = new CadeauHabitant(this.getNom(), this.getPrenom(), this.getEmail(), cadeau.getReference(), cadeau.getDescription(), cadeau.getMontant());
+        CadeauHabitant cadeauHabitant = new CadeauHabitant(this.getNom(), this.getPrenom(), this.getEmail(),
+                cadeau.getReference(), cadeau.getDescription(), cadeau.getMontant());
         this.cadeauOffert = true;
         return cadeauHabitant;
     }

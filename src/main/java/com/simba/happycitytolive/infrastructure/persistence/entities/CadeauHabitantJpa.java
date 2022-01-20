@@ -2,9 +2,8 @@ package com.simba.happycitytolive.infrastructure.persistence.entities;
 
 import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDate;
 
 /**
  * Created by podisto on 20/01/2022.
@@ -14,6 +13,7 @@ import javax.persistence.Table;
 @Data
 public class CadeauHabitantJpa {
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String nom;
     private String prenom;
@@ -21,4 +21,5 @@ public class CadeauHabitantJpa {
     private String reference;
     private String description;
     private double montant;
+    private LocalDate dateAttribution;
 }

@@ -1,6 +1,5 @@
 package com.simba.happycitytolive.application.domain;
 
-import lombok.AccessLevel;
 import lombok.Getter;
 
 import java.math.BigDecimal;
@@ -15,9 +14,7 @@ public class CadeauHabitant {
     private final String prenom;
     private final String email;
     private final String reference;
-    @Getter(AccessLevel.NONE)
     private final String description;
-    @Getter(AccessLevel.NONE)
     private final BigDecimal montant;
     private final LocalDate dateAttribution = LocalDate.now();
 

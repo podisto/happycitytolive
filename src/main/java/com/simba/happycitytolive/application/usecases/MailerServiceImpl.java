@@ -1,6 +1,9 @@
 package com.simba.happycitytolive.application.usecases;
 
-import com.simba.happycitytolive.application.domain.*;
+import com.simba.happycitytolive.application.domain.CadeauHabitantRepository;
+import com.simba.happycitytolive.application.domain.CadeauHabitant;
+import com.simba.happycitytolive.application.domain.Notification;
+import com.simba.happycitytolive.application.domain.NotificationService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -16,14 +19,14 @@ import java.util.stream.Collectors;
 @Slf4j
 public class MailerServiceImpl implements MailerService {
 
-    private final AttributionCadeauRepository attributionCadeauRepository;
+    private final CadeauHabitantRepository cadeauHabitantRepository;
     private final NotificationService notificationService;
     private final Clock clock;
 
     @Override
     public void sendMailReport() {
         LocalDate now = LocalDate.now(clock);
-        List<CadeauHabitant> cadeauxOfferts = attributionCadeauRepository.allDistributedGiftsByDay(now);
+        List<CadeauHabitant> cadeauxOfferts = cadeauHabitantRepository.allDistributedGiftsByDay(now);
         if (!cadeauxOfferts.isEmpty()) {
             List<Notification> notifications = cadeauxOfferts.stream()
                     .map(c -> new Notification(c.getNom(), c.getPrenom(), c.getEmail(), c.getDetails()))

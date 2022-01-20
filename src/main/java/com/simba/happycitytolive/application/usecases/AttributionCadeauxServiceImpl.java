@@ -16,7 +16,7 @@ import java.util.List;
 @Slf4j
 public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
 
-    private final AttributionCadeauRepository attributionCadeauRepository;
+    private final CadeauHabitantRepository cadeauHabitantRepository;
     private final CadeauRepository cadeauRepository;
     private final HabitantRepository habitantRepository;
     private final NotificationService notificationService;
@@ -33,7 +33,7 @@ public class AttributionCadeauxServiceImpl implements AttributionCadeauService {
             for (Habitant habitant: habitants) {
                 if (habitant.ageBetween(cadeau.getTrancheAge()) && habitant.hasNoCadeauOffert()) {
                     CadeauHabitant cadeauOffert = habitant.attribuerCadeau(cadeau);
-                    attributionCadeauRepository.save(cadeauOffert);
+                    cadeauHabitantRepository.save(cadeauOffert);
                     habitantRepository.save(habitant);
                     recipients.add(new Notification(habitant.getNom(), habitant.getPrenom(), habitant.getEmail(), cadeauOffert.getDetails()));
                 }

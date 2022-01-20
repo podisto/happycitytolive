@@ -1,11 +1,9 @@
 package com.simba.happycitytolive.application.usecases.dto;
 
+import com.simba.happycitytolive.application.domain.DateFormatter;
 import com.simba.happycitytolive.application.domain.Habitant;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import java.time.format.DateTimeFormatter;
 
 /**
  * Created by podisto on 15/01/2022.
@@ -24,8 +22,8 @@ public class HabitantEligible {
         this.nom = habitant.getNom();
         this.prenom = habitant.getPrenom();
         this.email = habitant.getEmail();
-        this.dateNaissance = habitant.getDateNaissance().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
-        this.dateArriveeCommune = habitant.getDateArriveeCommune().format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+        this.dateNaissance = DateFormatter.toString(habitant.getDateNaissance());
+        this.dateArriveeCommune = DateFormatter.toString(habitant.getDateArriveeCommune());
         this.adresse = habitant.getAdresse();
     }
 }

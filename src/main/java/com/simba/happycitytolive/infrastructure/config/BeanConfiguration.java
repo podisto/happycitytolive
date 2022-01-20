@@ -1,6 +1,6 @@
 package com.simba.happycitytolive.infrastructure.config;
 
-import com.simba.happycitytolive.application.domain.AttributionCadeauRepository;
+import com.simba.happycitytolive.application.domain.CadeauHabitantRepository;
 import com.simba.happycitytolive.application.domain.CadeauRepository;
 import com.simba.happycitytolive.application.domain.HabitantRepository;
 import com.simba.happycitytolive.application.domain.NotificationService;
@@ -29,13 +29,13 @@ public class BeanConfiguration {
     }
 
     @Bean
-    public AttributionCadeauService attributionCadeauService(AttributionCadeauRepository attributionCadeauRepository, CadeauRepository cadeauRepository, HabitantRepository habitantRepository,
+    public AttributionCadeauService attributionCadeauService(CadeauHabitantRepository cadeauHabitantRepository, CadeauRepository cadeauRepository, HabitantRepository habitantRepository,
                                                              NotificationService notificationService, Clock clock) {
-        return new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
+        return new AttributionCadeauxServiceImpl(cadeauHabitantRepository, cadeauRepository, habitantRepository, notificationService, clock);
     }
 
     @Bean
-    public MailerService mailerService(AttributionCadeauRepository attributionCadeauRepository, NotificationService notificationService, Clock clock) {
-        return new MailerServiceImpl(attributionCadeauRepository, notificationService, clock);
+    public MailerService mailerService(CadeauHabitantRepository cadeauHabitantRepository, NotificationService notificationService, Clock clock) {
+        return new MailerServiceImpl(cadeauHabitantRepository, notificationService, clock);
     }
 }

@@ -1,7 +1,7 @@
 package com.simba.happycitytolive.application.usecases;
 
 import com.simba.happycitytolive.application.domain.*;
-import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryAttributionCadeauRepository;
+import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryCadeauHabitantRepository;
 import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryCadeauRepository;
 import com.simba.happycitytolive.infrastructure.persistence.inmemory.InMemoryHabitantRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -17,13 +17,13 @@ import static org.mockito.Mockito.*;
  */
 class MailerServiceTest {
 
-    private final AttributionCadeauRepository attributionCadeauRepository = new InMemoryAttributionCadeauRepository();
+    private final CadeauHabitantRepository cadeauHabitantRepository = new InMemoryCadeauHabitantRepository();
     private final NotificationService notificationService = mock(NotificationService.class);
     private final Clock clock = initFixedClock();
     private final CadeauRepository cadeauRepository = new InMemoryCadeauRepository();
     private final HabitantRepository habitantRepository = new InMemoryHabitantRepository();
-    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(attributionCadeauRepository, cadeauRepository, habitantRepository, notificationService, clock);
-    private final MailerService mailService = new MailerServiceImpl(attributionCadeauRepository, notificationService, clock);
+    private final AttributionCadeauService attributionCadeauService = new AttributionCadeauxServiceImpl(cadeauHabitantRepository, cadeauRepository, habitantRepository, notificationService, clock);
+    private final MailerService mailService = new MailerServiceImpl(cadeauHabitantRepository, notificationService, clock);
 
     @BeforeEach
     void setUp() {
