@@ -48,7 +48,7 @@ public class Habitant {
     }
 
     public CadeauHabitant attribuerCadeau(Cadeau cadeau) {
-        CadeauHabitant cadeauHabitant = new CadeauHabitant(this, cadeau);
+        CadeauHabitant cadeauHabitant = new CadeauHabitant(this.getNom(), this.getPrenom(), this.getEmail(), cadeau.getReference(), cadeau.getDescription(), cadeau.getMontant());
         this.cadeauOffert = true;
         return cadeauHabitant;
     }

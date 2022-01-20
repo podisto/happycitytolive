@@ -6,6 +6,7 @@ import com.simba.happycitytolive.infrastructure.persistence.entities.CadeauHabit
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -30,7 +31,7 @@ public class AttributionCadeauJpaAdapter implements AttributionCadeauRepository 
     }
 
     private CadeauHabitant toCadeauHabitant(CadeauHabitantJpa cadeauHabitantJpa) {
-        return new CadeauHabitant(cadeauHabitantJpa.getNom(), cadeauHabitantJpa.getPrenom(), cadeauHabitantJpa.getEmail(), cadeauHabitantJpa.getReference(), cadeauHabitantJpa.getDescription(), cadeauHabitantJpa.getMontant());
+        return new CadeauHabitant(cadeauHabitantJpa.getNom(), cadeauHabitantJpa.getPrenom(), cadeauHabitantJpa.getEmail(), cadeauHabitantJpa.getReference(), cadeauHabitantJpa.getDescription(), BigDecimal.valueOf(cadeauHabitantJpa.getMontant()));
     }
 
     @Override

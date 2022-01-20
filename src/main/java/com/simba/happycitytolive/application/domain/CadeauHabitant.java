@@ -21,22 +21,13 @@ public class CadeauHabitant {
     private final BigDecimal montant;
     private final LocalDate dateAttribution = LocalDate.now();
 
-    public CadeauHabitant(Habitant habitant, Cadeau cadeau) {
-        this.nom = habitant.getNom();
-        this.prenom = habitant.getPrenom();
-        this.email = habitant.getEmail();
-        this.reference = cadeau.getReference();
-        this.description = cadeau.getDescription();
-        this.montant = cadeau.getMontant();
-    }
-
-    public CadeauHabitant(String nom, String prenom, String email, String reference, String description, double montant) {
+    public CadeauHabitant(String nom, String prenom, String email, String reference, String description, BigDecimal montant) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;
         this.reference = reference;
         this.description = description;
-        this.montant = BigDecimal.valueOf(montant);
+        this.montant = montant;
     }
 
     public String getDetails() {
