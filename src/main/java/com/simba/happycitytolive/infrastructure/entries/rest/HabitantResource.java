@@ -14,7 +14,7 @@ import java.util.List;
  * Created by podisto on 15/01/2022.
  */
 @RestController
-@RequestMapping(value = "/habitants")
+@RequestMapping(value = "/api/habitants")
 @RequiredArgsConstructor
 public class HabitantResource {
 

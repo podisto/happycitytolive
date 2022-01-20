@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * Created by podisto on 19/01/2022.
  */
 @RestController
-@RequestMapping(value = "/cadeaux")
+@RequestMapping(value = "/api/cadeaux")
 @RequiredArgsConstructor
 public class CadeauResource {
 

@@ -1,3 +1,12 @@
+server:
+  servlet:
+    context-path: /happycitytolive
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+
 mail:
   from: noreply@happycitytolive.com
   host: localhost
