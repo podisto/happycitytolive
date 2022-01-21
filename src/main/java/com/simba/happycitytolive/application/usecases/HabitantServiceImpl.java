@@ -39,6 +39,17 @@ public class HabitantServiceImpl implements HabitantService {
     }
 
     private List<HabitantEligible> toDtoList(List<Habitant> habitants) {
-        return habitants.stream().map(HabitantEligible::new).collect(Collectors.toList());
+        return habitants.stream().map(this::toDto).collect(Collectors.toList());
+    }
+
+    private HabitantEligible toDto(Habitant habitant) {
+        HabitantEligible habitantEligible = new HabitantEligible();
+        habitantEligible.setNom(habitant.getNom());
+        habitantEligible.setPrenom(habitant.getPrenom());
+        habitantEligible.setDateNaissance(DateFormatter.toString(habitant.getDateNaissance()));
+        habitantEligible.setEmail(habitant.getEmail());
+        habitantEligible.setDateArriveeCommune(DateFormatter.toString(habitant.getDateArriveeCommune()));
+        habitantEligible.setAdresse(habitant.getAdresse());
+        return habitantEligible;
     }
 }
