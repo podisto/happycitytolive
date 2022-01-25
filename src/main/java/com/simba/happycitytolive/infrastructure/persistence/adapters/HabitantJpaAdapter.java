@@ -53,6 +53,11 @@ public class HabitantJpaAdapter implements HabitantRepository {
         return Optional.of(toHabitant(habitant));
     }
 
+    @Override
+    public List<Habitant> all() {
+        return habitantJpaRepository.findAll().stream().map(this::toHabitant).collect(Collectors.toList());
+    }
+
     private Habitant toHabitant(HabitantJpa entity) {
         return new Habitant(entity.getNom(), entity.getPrenom(), entity.getEmail(),
                 entity.getDateNaissance(), entity.getDateArriveeCommune(), entity.getAdresse());

@@ -43,4 +43,9 @@ public class InMemoryHabitantRepository implements HabitantRepository {
     public Optional<Habitant> byEmail(String email) {
         return listeHabitants.stream().filter(h -> h.getEmail().equals(email)).findAny();
     }
+
+    @Override
+    public List<Habitant> all() {
+        return listeHabitants;
+    }
 }

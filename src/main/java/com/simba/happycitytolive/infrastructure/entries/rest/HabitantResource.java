@@ -2,12 +2,12 @@ package com.simba.happycitytolive.infrastructure.entries.rest;
 
 import com.simba.happycitytolive.application.usecases.HabitantService;
 import com.simba.happycitytolive.application.usecases.dto.HabitantEligible;
+import com.simba.happycitytolive.application.usecases.dto.NouvelHabitant;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -27,5 +27,12 @@ public class HabitantResource {
         log.info("Récupération Habitants éligibles");
         List<HabitantEligible> eligibleResidents = habitantService.getEligibleHabitants();
         return ResponseEntity.ok(eligibleResidents);
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> add(@RequestBody NouvelHabitant nouvelHabitant) {
+        log.info("Ajouter un habitant: {}", nouvelHabitant);
+        habitantService.addHabitant(nouvelHabitant);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

@@ -35,6 +35,16 @@ class HabitantServiceTest {
         assertThat(habitantEligibles.get(0).getDateNaissance()).isEqualTo("08/10/1980");
     }
 
+    @Test
+    void addHabitant() {
+        NouvelHabitant nouvelHabitant = initHabitants().get(0);
+
+        habitantService.addHabitant(nouvelHabitant);
+
+        assertThat(habitantRepository.byEmail("marie.carin@example.fr")).isNotEmpty();
+        assertThat(habitantRepository.all().size()).isEqualTo(1);
+    }
+
     private Clock initClock() {
         LocalDateTime currentDate = LocalDateTime.of(2021, 1, 31, 0, 0);
         Instant instant = ZonedDateTime.of(currentDate, ZoneId.systemDefault()).toInstant();

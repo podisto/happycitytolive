@@ -14,4 +14,6 @@ public interface HabitantRepository {
     List<Habitant> findEligibleHabitants(LocalDate currentDate);
 
     Optional<Habitant> byEmail(String email);
+
+    List<Habitant> all();
 }

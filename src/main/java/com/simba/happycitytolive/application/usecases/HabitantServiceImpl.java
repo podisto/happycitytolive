@@ -35,7 +35,6 @@ public class HabitantServiceImpl implements HabitantService {
         Habitant habitant = new Habitant(nouvelHabitant.getNom(), nouvelHabitant.getPrenom(), nouvelHabitant.getEmail(),
                 DateFormatter.toDate(nouvelHabitant.getDateNaissance()), DateFormatter.toDate(nouvelHabitant.getDateArriveeCommune()), nouvelHabitant.getAdresse());
         habitantRepository.save(habitant);
-
     }
 
     private List<HabitantEligible> toDtoList(List<Habitant> habitants) {
