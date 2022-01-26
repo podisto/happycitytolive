@@ -29,8 +29,10 @@ public class HappycitytoliveApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        saveHabitants();
-        saveCadeaux();
+        if (habitantRepository.all().isEmpty()) {
+            saveHabitants();
+        }
+        // saveCadeaux();
     }
 
     private void saveHabitants() {

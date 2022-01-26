@@ -28,3 +28,6 @@ mail:
   host: localhost
   port: 25
   email-mairie: noreply@service-cadeau.com
+
+application:
+  file-dir: data/cadeaux.txt

@@ -1,5 +1,6 @@
 package com.simba.happycitytolive.application.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.ToString;
 
@@ -10,6 +11,7 @@ import java.math.BigDecimal;
  */
 @Getter
 @ToString
+@EqualsAndHashCode
 public class Cadeau {
     private final String reference;
     private final String description;
